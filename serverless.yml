@@ -12,12 +12,12 @@ custom:
   # commands. Or fallsback to what we have set in the provider section
   stage: ${opt:stage, self:provider.stage}
   # Set the table name here so we can use it while testing locally
-  tableName: ${self:custom:stage}-notes
+  tableName: ${self:custom.stage}-notes
   # Set our DynamoDB throughput for prod and all other non-prod stages.
   tableThroughputs:
     prod: 5
     default: 1
-  tableThroughput: ${self.custom.tableThroughput.${self:custom:stage}, self:custom.tableThroughputs.default}
+  tableThroughput: ${self.custom.tableThroughput.${self:custom.stage}, self:custom.tableThroughputs.default}
   # Load our webpack config
   webpack:
     webpackConfig: ./webpack.config.js
@@ -120,7 +120,7 @@ resources:
   # API Gateway Errors
   - ${file(resources/api-gateway-errors.yml)}
   # DynamoDB
-  - ${file(resources/dynamodb-table-yml)}
+  - ${file(resources/dynamodb-table.yml)}
   # S3
   - ${file(resources/s3-bucket.yml)}
   # Cognito
